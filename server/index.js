@@ -10,7 +10,9 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 app.get('/api/albums', function (req, res) {
-
+  db.getAllAlbums(function(result){
+    res.json(result);
+  })
 });
 
 app.listen(3000, function () {

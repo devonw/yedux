@@ -7,13 +7,27 @@ import AlbumList from './components/AlbumList.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      albums: []
+    }
+    var getAlbums = function() {
+      $.get('http://localhost:3000/api/albums', function(data){
+        this.setState({albums: data});
+        console.log(this.state.albums);
+      }.bind(this))
+    }.bind(this)
+    getAlbums();
   }
 
   render() {
     return (
       <div>
         <h1>Yedux</h1>
-        <AlbumList />
+        {
+        this.state.albums.map(album =>
+          <AlbumList album={album}/>)
+      }
+   
       </div>
     );
   }
